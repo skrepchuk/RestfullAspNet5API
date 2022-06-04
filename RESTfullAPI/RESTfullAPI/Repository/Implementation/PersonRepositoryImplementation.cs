@@ -20,6 +20,7 @@ namespace RESTfullAPI.Repository.Implementation
 
         public Person? GetById(long id)
         {
+            if (!Exists(id)) return null;
             return _context.TablePerson.SingleOrDefault(p => p.Id.Equals(id));
         }
 
@@ -38,9 +39,9 @@ namespace RESTfullAPI.Repository.Implementation
         }
 
         
-        public Person Update(Person person)
+        public Person? Update(Person person)
         {
-            if (!Exists(person.Id)) return new Person();
+            if (!Exists(person.Id)) return null;
 
             var existPerson = GetById(person.Id);
 

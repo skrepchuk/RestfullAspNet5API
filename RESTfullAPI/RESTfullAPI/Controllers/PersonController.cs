@@ -52,7 +52,8 @@ namespace RESTfullAPI.Controllers
             {
                 return BadRequest();
             }
-            return Ok(_personBusiness.Update(person));
+            var updatedPerson = _personBusiness.Update(person);
+            return Ok(updatedPerson != null ? updatedPerson : NotFound());
         }
 
         [HttpDelete("{id}")]
