@@ -1,12 +1,14 @@
 ﻿using RESTfullAPI.Model;
 using RESTfullAPI.Model.Context;
 
-namespace RESTfullAPI.Service.Implementation
+namespace RESTfullAPI.Repository.Implementation
 {
-    public class PersonServiceImplementation : IPersonService
+    public class PersonRepositoryImplementation : IPersonRepository
     {
+
         private MySQLContext _context;
-        public PersonServiceImplementation(MySQLContext context)
+
+        public PersonRepositoryImplementation (MySQLContext context)
         {
             _context = context;
         }
@@ -75,7 +77,7 @@ namespace RESTfullAPI.Service.Implementation
             }
         }
 
-        private bool Exists(long id)
+        public bool Exists(long id)
         {
             return _context.TablePerson.Any(p => p.Id.Equals(id));
         }

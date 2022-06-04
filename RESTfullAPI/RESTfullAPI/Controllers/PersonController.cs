@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RESTfullAPI.Model;
-using RESTfullAPI.Service;
+using RESTfullAPI.Business;
 
 namespace RESTfullAPI.Controllers
 {
@@ -10,24 +10,24 @@ namespace RESTfullAPI.Controllers
     public class PersonController : ControllerBase
     {
         private readonly ILogger<CalculatorController> _logger;
-        private IPersonService _personService;
-        public PersonController(ILogger<CalculatorController> logger, IPersonService personService)
+        private IPersonBusiness _personBusiness;
+        public PersonController(ILogger<CalculatorController> logger, IPersonBusiness personBusiness)
         {
             _logger = logger;
-            _personService = personService;
+            _personBusiness = personBusiness;
         }
 
 
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_personService.List());
+            return Ok(_personBusiness.List());
         }
 
         [HttpGet("{id}")]
         public IActionResult Get(long id)
         {
-            var person = _personService.GetById(id);
+            var person = _personBusiness.GetById(id);
             if (person == null)
             {
                 return NotFound();
@@ -42,7 +42,7 @@ namespace RESTfullAPI.Controllers
             {
                 return BadRequest();
             }
-            return Ok(_personService.Create(person));
+            return Ok(_personBusiness.Create(person));
         }
 
         [HttpPut]
@@ -52,13 +52,13 @@ namespace RESTfullAPI.Controllers
             {
                 return BadRequest();
             }
-            return Ok(_personService.Update(person));
+            return Ok(_personBusiness.Update(person));
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(long id)
         {
-            _personService.Delete(id);
+            _personBusiness.Delete(id);
             return NoContent();
         }
     }

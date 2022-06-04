@@ -1,8 +1,10 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
 using RESTfullAPI.Model.Context;
-using RESTfullAPI.Service;
-using RESTfullAPI.Service.Implementation;
+using RESTfullAPI.Business;
+using RESTfullAPI.Business.Implementation;
+using RESTfullAPI.Repository.Implementation;
+using RESTfullAPI.Repository;
 
 namespace RESTfullAPI
 {
@@ -31,7 +33,8 @@ namespace RESTfullAPI
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
 
-            services.AddScoped<IPersonService, PersonServiceImplementation>();
+            services.AddScoped<IPersonBusiness, PersonBusinessImplementation>();
+            services.AddScoped<IPersonRepository, PersonRepositoryImplementation>();
         }
 
         public void Configure(WebApplication app, IWebHostEnvironment environment)

@@ -1,8 +1,8 @@
 ﻿using RESTfullAPI.Model;
 
-namespace RESTfullAPI.Service
+namespace RESTfullAPI.Business
 {
-    public interface IPersonService
+    public interface IPersonBusiness
     {
         Person Create(Person person);
         Person? GetById(long id);
