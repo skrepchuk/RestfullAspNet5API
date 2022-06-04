@@ -1,20 +1,37 @@
-﻿namespace RESTfullAPI
+﻿
+using Microsoft.EntityFrameworkCore;
+using RESTfullAPI.Model.Context;
+using RESTfullAPI.Service;
+using RESTfullAPI.Service.Implementation;
+
+namespace RESTfullAPI
 {
     public class Startup
     {
+        private readonly IConfiguration Configuration;
         public Startup(IConfiguration configuration)
         {
-            configuration = Configuration;
+            Configuration = configuration;
         }
-
-        public IConfiguration Configuration { get;}
-
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddApiVersioning();
+
+            var connectionString = Configuration["MySQLConnection:MySQLConnectionString"];
+            var serverVersion = new MySqlServerVersion(ServerVersion.AutoDetect(connectionString));
+            services.AddDbContext<MySQLContext>(dbContextOptions => dbContextOptions
+                .UseMySql(connectionString, serverVersion)
+                .LogTo(Console.WriteLine, LogLevel.Information)
+                .EnableSensitiveDataLogging()
+                .EnableDetailedErrors());
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
+
+            services.AddScoped<IPersonService, PersonServiceImplementation>();
         }
 
         public void Configure(WebApplication app, IWebHostEnvironment environment)
