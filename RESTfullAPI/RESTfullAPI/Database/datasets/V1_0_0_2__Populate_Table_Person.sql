@@ -1,8 +1,3 @@
-CREATE TABLE IF NOT EXISTS `person` (
-	`id` BIGINT(20) NOT NULL AUTO_INCREMENT,
-	`first_name` VARCHAR(50) NOT NULL,
-	`last_name` VARCHAR(50) NOT NULL,
-	`address`  VARCHAR(100) NOT NULL,
-	`gender`  VARCHAR(6) NOT NULL,
-	PRIMARY KEY (`id`)
-)
+INSERT INTO `person` (`id`, `first_name`, `last_name`, `address`, `gender`) VALUES
+	(1, 'André', 'Skrepchuk Caldeira', 'Rua Nossa Senhora das Vitórias', 'Male'),
+	(3, 'Marisa', 'Xavier', 'Rua Nossa Senhora das Vitórias', 'Female');
