@@ -9,5 +9,6 @@ namespace RESTfullAPI.Model.Context
         public MySQLContext(DbContextOptions<MySQLContext> options) : base(options) { }
 
         public DbSet<Person> TablePerson { get; set; }
+        public DbSet<Book> TableBook { get; set; }
     }
 }

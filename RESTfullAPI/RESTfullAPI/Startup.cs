@@ -1,5 +1,4 @@
-﻿
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using RESTfullAPI.Model.Context;
 using RESTfullAPI.Business;
 using RESTfullAPI.Business.Implementation;
@@ -32,19 +31,20 @@ namespace RESTfullAPI
 
             services.AddApiVersioning();
 
-            
             services.AddDbContext<MySQLContext>(dbContextOptions => dbContextOptions
                 .UseMySql(_connectionString, _serverVersion)
                 .LogTo(Console.WriteLine, LogLevel.Information)
                 .EnableSensitiveDataLogging()
                 .EnableDetailedErrors());
 
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
 
             services.AddScoped<IPersonBusiness, PersonBusinessImplementation>();
+            services.AddScoped<IBookBusiness, BookBusinessImplementation>();
+
             services.AddScoped<IPersonRepository, PersonRepositoryImplementation>();
+            services.AddScoped<IBookRepository, BookRepositoryImplementation>();
         }
 
         public void Configure(WebApplication app)
