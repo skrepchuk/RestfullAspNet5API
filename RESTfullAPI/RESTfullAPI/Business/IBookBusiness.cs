@@ -4,10 +4,10 @@ namespace RESTfullAPI.Business
 {
     public interface IBookBusiness
     {
-        Book Create(Book book);
-        Book? GetById(long id);
-        Book? Update(Book book);
-        void Delete(long id);
-        List<Book> List();
+        Task<List<Book>> GetAll();
+        Task<Book> GetById(long id);
+        Task<Book> Update(Book book);
+        Task<Book> Create(Book book);
+        Task Delete(long id);
     }
 }

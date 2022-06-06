@@ -19,15 +19,15 @@ namespace RESTfullAPI.Controllers
 
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> GetAll()
         {
-            return Ok(_bookBusiness.List());
+            return  Ok(await _bookBusiness.GetAll());
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(long id)
+        public async Task<IActionResult> GetById(long id)
         {
-            var book = _bookBusiness.GetById(id);
+            var book = await _bookBusiness.GetById(id);
             if (book == null)
             {
                 return NotFound();
@@ -36,30 +36,30 @@ namespace RESTfullAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] Book book)
+        public async Task<IActionResult> Create([FromBody] Book book)
         {
             if (book == null)
             {
                 return BadRequest();
             }
-            return Ok(_bookBusiness.Create(book));
+            return Ok(await _bookBusiness.Create(book));
         }
 
         [HttpPut]
-        public IActionResult Put([FromBody] Book book)
+        public async Task<IActionResult> Update([FromBody] Book book)
         {
             if (book == null)
             {
                 return BadRequest();
             }
-            var updatedBook = _bookBusiness.Update(book);
+            var updatedBook = await _bookBusiness.Update(book);
             return Ok(updatedBook != null ? updatedBook : NotFound());
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(long id)
+        public async Task<IActionResult> Delete(long id)
         {
-            _bookBusiness.Delete(id);
+            await _bookBusiness.Delete(id);
             return NoContent();
         }
     }

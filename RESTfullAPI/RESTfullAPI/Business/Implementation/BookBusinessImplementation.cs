@@ -1,41 +1,42 @@
 ﻿using RESTfullAPI.Model;
-using RESTfullAPI.Repository;
+using RESTfullAPI.Repository.Generic;
 
 namespace RESTfullAPI.Business.Implementation
 {
     public class BookBusinessImplementation : IBookBusiness
     {
 
-        private readonly IBookRepository _repository;
+        private readonly IAsyncRepository<Book> _repository;
 
-        public BookBusinessImplementation(IBookRepository repository)
+        public BookBusinessImplementation(IAsyncRepository<Book> repository)
         {
             _repository = repository;
         }
 
-        public List<Book> List()
+        public async Task<List<Book>> GetAll()
         {
-            return _repository.List();
+            return await _repository.GetAll();
         }
 
-        public Book? GetById(long id)
+        public async Task<Book> GetById(long id)
         {
-            return _repository.GetById(id);
+            return await _repository.GetById(id);
         }
 
-        public Book Create(Book book)
+        public async Task<Book> Create(Book book)
         {
-            return _repository.Create(book);
+            return await _repository.Create(book);
         }
 
-        public Book? Update(Book book)
+        public async Task<Book> Update(Book book)
         {
-            return _repository.Update(book);
+            return await _repository.Update(book);
         }
 
-        public void Delete(long id)
+        public async Task Delete(long id)
         {
-            _repository.Delete(id);
+            await _repository.Delete(id);
         }
+
     }
 }

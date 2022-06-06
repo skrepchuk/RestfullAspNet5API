@@ -5,6 +5,7 @@ using RESTfullAPI.Business.Implementation;
 using RESTfullAPI.Repository.Implementation;
 using RESTfullAPI.Repository;
 using Serilog;
+using RESTfullAPI.Repository.Generic;
 
 namespace RESTfullAPI
 {
@@ -40,11 +41,13 @@ namespace RESTfullAPI
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
 
+            services.AddTransient(typeof(IAsyncRepository<>), typeof(AsyncGenericRepository<>));
+
             services.AddScoped<IPersonBusiness, PersonBusinessImplementation>();
             services.AddScoped<IBookBusiness, BookBusinessImplementation>();
 
             services.AddScoped<IPersonRepository, PersonRepositoryImplementation>();
-            services.AddScoped<IBookRepository, BookRepositoryImplementation>();
+            
         }
 
         public void Configure(WebApplication app)
